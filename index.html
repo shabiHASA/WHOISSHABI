@@ -1,0 +1,346 @@
+101924
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOISSHABI</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #33ff33;
+            font-family: 'Courier Prime', monospace;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* CRT 효과 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+            animation: flicker 0.15s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+        
+        .warning-corner {
+            position: fixed;
+            font-size: 10px;
+            color: #ff3333;
+            font-family: 'VT323', monospace;
+            text-transform: uppercase;
+            z-index: 10;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.3; }
+        }
+        
+        .warning-top-left {
+            top: 10px;
+            left: 10px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        .warning-top-right {
+            top: 10px;
+            right: 10px;
+        }
+        
+        .warning-bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+        
+        .warning-bottom-right {
+            bottom: 10px;
+            right: 10px;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
+        
+        .header {
+            text-align: center;
+            border: 3px double #33ff33;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(0, 100, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-family: 'VT323', monospace;
+            font-size: 42px;
+            letter-spacing: 4px;
+            color: #ff3333;
+            text-shadow: 0 0 10px #ff3333, 0 0 20px #ff0000;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            color: #ffff33;
+            letter-spacing: 2px;
+        }
+        
+        .classified-stamp {
+            color: #ff3333;
+            font-size: 24px;
+            font-weight: bold;
+            transform: rotate(-15deg);
+            margin: 20px 0;
+            text-align: center;
+            border: 3px solid #ff3333;
+            padding: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .photo-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #33ff33;
+            background: rgba(0, 50, 0, 0.3);
+        }
+        
+        .photo-container img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border: 5px solid #000;
+            filter: grayscale(100%) contrast(1.2);
+        }
+        
+        .photo-label {
+            color: #ffff33;
+            font-size: 12px;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #33ff33;
+            background: rgba(0, 50, 0, 0.05);
+        }
+        
+        .section h2 {
+            color: #ffff33;
+            font-family: 'VT323', monospace;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px #ffff33;
+        }
+        
+        .section p {
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .glitch {
+            animation: glitch 1s infinite;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .redacted {
+            background: #000;
+            color: #000;
+            padding: 0 5px;
+            user-select: none;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 2px solid #33ff33;
+            font-size: 11px;
+            color: #888;
+        }
+        
+        .access-code {
+            color: #ff3333;
+            font-size: 10px;
+            text-align: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-corner warning-top-left">UNAUTHORIZED ACCESS DETECTED</div>
+    <div class="warning-corner warning-top-right">THIS DOCUMENT IS CLASSIFIED</div>
+    <div class="warning-corner warning-bottom-left">DO NOT DISTRIBUTE</div>
+    <div class="warning-corner warning-bottom-right">EVIDENCE FILE #4419</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>SHABI の真実を暴露する | EXPOSING SHABI | 揭露SHABI真相</h1>
+            <div class="subtitle">EXPOSING THE TRUTH ABOUT SHABI</div>
+        </div>
+        
+        <div class="classified-stamp">
+            ◢◤ CLASSIFIED INFORMATION ◢◤<br>
+            機密情報 | 机密信息 | СЕКРЕТНО
+        </div>
+        
+        <div class="section">
+            <h2>⚠️ 警告 / WARNING / ПРЕДУПРЕЖДЕНИЕ</h2>
+            <p>본 문서 는 "SHABI"의 실체를 고발하는 증거 자료입니다.</p>
+            <p>This document exposes the true identity of the internet persona "SHABI".</p>
+            <p>このドキュメントは、インターネット上の人物「SHABI」の正体を暴露します。</p>
+            <p>本文件揭露了网络人物"SHABI"的真实身份。</p>
+        </div>
+        
+        <div class="section">
+            <h2>証拠写真 / PHOTOGRAPHIC EVIDENCE</h2>
+            <div class="photo-container">
+                <img id="shabiPhoto" src="" alt="SHABI - ACTUAL IDENTITY" style="display:none;">
+                <div class="photo-label">
+                    [ 写真をここに追加してください / INSERT PHOTO HERE ]<br>
+                    SUBJECT: SHABI | DATE: 2025.11.11 | STATUS: EXPOSED
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>衝撃的な真実 / SHOCKING REVELATIONS</h2>
+            
+            <p><strong>🇰한국어:</strong> SHABI는 사실 미소녀가 아닙니다. 그는 <span class="redacted">[검열됨]</span>에 거주하는 44세 남성입니다.</p>
+            
+            <p><strong>🇯日本語:</strong> SHABIは実は美少女ではありません。彼は<span class="redacted">[検閲済み]</span>に住む44歳の男性です。</p>
+            
+            <p><strong>🇺English:</strong> SHABI is not actually a young girl. He is a 44-year-old male residing in <span class="redacted">[REDACTED]</span>.</p>
+            
+            <p><strong>🇨中文:</strong> SHABI实际上不是美少女。他是一名居住在<span class="redacted">[已编辑]</span>的44岁男性。</p>
+            
+            <p><strong>🇷Русский:</strong> SHABI на самом деле не милая девушка. Это 44-летний мужчина, проживающий в <span class="redacted">[УДАЛЕНО]</span>.</p>
+            
+            <p><strong>🇪Español:</strong> SHABI no es realmente una chica linda. Es un hombre de 44 años que reside en <span class="redacted">[CENSURADO]</span>.</p>
+            
+            <p><strong>🇩Deutsch:</strong> SHABI ist eigentlich kein süßes Mädchen. Er ist ein 44-jähriger Mann, der in <span class="redacted">[ZENSIERT]</span> wohnt.</p>
+        </div>
+        
+        <div class="section">
+            <h2>追加の暴露 / ADDITIONAL EXPOSURES</h2>
+            
+            <p><strong>Révélation #1:</strong> SHABIは過去10年間、複数のオンラインペルソナを使用してきました。</p>
+            <p><strong>Disclosure #2:</strong> 所有的个人资料照片都是从图片库网站下载的。</p>
+            <p><strong>Обнародование #3:</strong> SHABI никогда не был в Корее, несмотря на утверждения.</p>
+            <p><strong>Revelación #4:</strong> El "diario personal" era completamente ficticio desde el principio.</p>
+            <p><strong>Exposé #5:</strong> Die "Live-Streams" waren voraufgezeichnet und mit Filtern bearbeitet.</p>
+            <p><strong>暴露 #6:</strong> 팔로워들 과의 모든 사적인 대화는 우리의 AI 로봇 이 대신 답변했습니다.</p>
+            <p><strong>Revelazione #7:</strong> Tutte le "fotografie spontanee" erano attentamente orchestrate.</p>
+            <p><strong>Openbaarmakıng #8:</strong> De stem in spraakberichten was gegenereerd door stemkloning-software.</p>
+        </div>
+        
+        <div class="section">
+            <h2>最終警告 / FINAL WARNING</h2>
+            <p>この情報は公共の利益のために公開されています。</p>
+            <p>This information is released in the public interest.</p>
+            <p>이 정보는 공익 을 위해 공개됩니다.</p>
+            <p>Эта информация раскрыта в общественных интересах.</p>
+            <p>Esta información se divulga en interés público.</p>
+        </div>
+        
+        <div class="footer">
+            ═══════════════════════════════════════<br>
+            DOCUMENT ID: SHB-EXP-20251111-DEEP<br>
+            CLEARANCE LEVEL: MAXIMUM<br>
+            DO NOT COPY | DO NOT FORWARD | DO NOT DISCUSS<br>
+            ═══════════════════════════════════════
+            
+            <div class="access-code">
+                ACCESS CODE: ████-████-████ | TIMESTAMP: 03:47:22 UTC
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 사진을 추가하려면 아래 URL을 수정하세요
+        // To add photo, modify the URL below:
+        const photoUrl = "YOUR_IMAGE_URL_HERE.jpg";
+        
+        const imgElement = document.getElementById('shabiPhoto');
+        if(photoUrl !== "YOUR_IMAGE_URL_HERE.jpg") {
+            imgElement.src = photoUrl;
+            imgElement.style.display = "block";
+        }
+        
+        // 타이핑 효과 (선택사항)
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('.header h1');
+            const text = header.textContent;
+            header.textContent = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    header.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            typeWriter();
+        });
+    </script>
+</body>
+</html>
